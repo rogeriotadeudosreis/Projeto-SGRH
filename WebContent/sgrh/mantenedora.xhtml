@@ -1,0 +1,126 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Gerenciador de Mantenedoras</title>
+	<link type="text/css" rel="stylesheet" href="dot-luv/skin.css" />
+</h:head>
+<h:body>
+
+	<p:layout fullPage="false">
+		<p:layoutUnit position="top" header="Mantenedora"
+			resizable="true" closable="true" collapsible="true">
+
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center" resizable="true">
+
+			<h:form id="form1">
+				<p:commandLink value="Nova"
+					actionListener="#{controleMantenedora.prepararAdicionarMantenedora}"
+					update=":dialogNovaMantenedora" oncomplete="dialogNovaMantenedora.show()" />
+			</h:form>
+
+			<h1>Gerenciador de Mantenedoras</h1>
+			<br />
+			<h:form id="form2" prependId="false" resizable="true">
+				<p:dataTable id="tabela" var="mantenedora" selectionMode="single"
+					selection="#{controleMantenedora.mantenedoraSel}"
+					rowKey="#{mantenedora.manIden}"
+					value="#{controleMantenedora.listaMantenedora}">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="CNPJ" />
+						</f:facet>
+						<h:outputText value="#{mantenedora.manCnpj}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Inscrição Estadual" />
+						</f:facet>
+						<h:outputText value="#{mantenedora.manInscEstadual}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Inscrição Municipal" />
+						</f:facet>
+						<h:outputText value="#{mantenedora.manInscMunicipal}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome Fantasia" />
+						</f:facet>
+						<h:outputText value="#{mantenedora.manNomeFantasia}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Razão Social" />
+						</f:facet>
+						<h:outputText value="#{mantenedora.manRazaoSocial}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Alterar" />
+						</f:facet>
+						<p:commandButton
+							actionListener="#{controleMantenedora.prepararAlterarMantenedora}"
+							icon="ui-icon-pencil" update=":dialogNovaMantenedora"
+							oncomplete="dialogNovaMantenedora.show()" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Excluir" />
+						</f:facet>
+						<h:commandButton
+							action="#{controleMantenedora.excluirMantenedora}"
+							icon="ui-icon-times" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:layoutUnit>
+	</p:layout>
+
+	<p:dialog header="Cadastro de Mantenedora" widgetVar="dialogNovaMantenedora"
+		resizable="false" showEffect="slide" id="dialogNovaMantenedora">
+		<h:form id="form3" prependId="false">
+			<h:panelGrid id="infosLivro" columns="2" style="margin-bottom:10px">
+
+				<h:outputLabel for="manCnpj" value="CNPJ:" />
+				<h:inputText id="manCnpj"
+					value="#{controleMantenedora.mantenedora.manCnpj}" />
+				
+				<h:outputLabel for="manInscEstadual" value="Inscrição Estadual:" />
+				<h:inputText id="manInscEstadual"
+					value="#{controleMantenedora.mantenedora.manInscEstadual}" />
+				
+				<h:outputLabel for="manInscMunicipal" value="Inscrição Municipal:" />
+				<h:inputText id="manInscMunicipal"
+					value="#{controleMantenedora.mantenedora.manInscMunicipal}" />
+				
+				<h:outputLabel for="manNomeFantasia" value="Nome Fantasia:" />
+				<h:inputText id="manNomeFantasia"
+					value="#{controleMantenedora.mantenedora.manNomeFantasia}" />
+				
+				<h:outputLabel for="manRazaoSocial" value="Razão Social:" />
+				<h:inputText id="manRazaoSocial"
+					value="#{controleMantenedora.mantenedora.manRazaoSocial}" />
+				
+				<p:commandButton update=":form2" oncomplete="dialogNovaMantenedora.hide();"
+					actionListener="#{controleMantenedora.adicionarMantenedora}"
+					value="Inserir" />
+
+				<p:commandButton update=":form2" oncomplete="dialogNovaMantenedora.hide();"
+					actionListener="#{controleMantenedora.alterarMantenedora}"
+					value="Alterar" />
+
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+</html>
